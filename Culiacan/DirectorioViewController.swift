@@ -10,10 +10,14 @@ import UIKit
 
 class DirectorioViewController: UITableViewController {
     private var arrayDirectorio: NSMutableArray!
+    private var arrayFuncionarios: NSMutableArray!
     private var dicDirectorio: NSDictionary!
+    var filtrados:NSArray!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        arrayDirectorio = []
+        arrayFuncionarios  = []
+        getFuncionarios()
         getDependencias()
         
         // Uncomment the following line to preserve selection between presentations
@@ -39,7 +43,103 @@ class DirectorioViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 3
+        return arrayDirectorio.count
+    }
+    
+    func congfigRequest(uri:String) -> NSMutableURLRequest {
+        var usr = "dsdd"
+        var pwdCode = "dsds"
+        let params:[String: AnyObject] = [
+            "email" : usr,
+            "userPwd" : pwdCode ]
+        
+        let url = NSURL(string:uri)
+        let request = NSMutableURLRequest(URL: url!)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = "POST"
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions.allZeros, error: &err)
+        
+        return request
+    }
+    
+    func getFuncionarios(){
+        var configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        var session = NSURLSession(configuration: configuration)
+        
+        let request = congfigRequest("http://transparencia.culiacan.gob.mx/api/directorio/funcionarios")
+        var err: NSError?
+        
+        let funcionarios = session.dataTaskWithRequest(request) {
+            data, response, error in
+            
+            if let httpResponse = response as? NSHTTPURLResponse {
+                if httpResponse.statusCode != 200 {
+                    println("response was not 200: \(response)")
+                    return
+                }
+            }
+            if (error != nil) {
+                println("error submitting request: \(error)")
+                return
+            }
+            
+            // handle the data of the successful response here
+            
+            if let result:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&err) as? NSDictionary {
+                /*
+                "foto": "4_17_irma_moreno.jpg",
+                "nombre_completo": "C. Irma Guadalupe Moreno Ovalles",
+                "correo": "irma.moreno@culiacan.gob.mx",
+                "direccion": "Palacio Municipal\nPlanta baja",
+                "telefono": "Conmut. 758-01-01 Ext. 1391, 1392 Directo 758-01-19 Directo 715-85-46",
+                "puesto": "SÍNDICA PROCURADORA",
+                "dependencia": "SÍNDICO PROCURADOR",
+                "estado":
+                */
+                
+                if let items  = result.objectForKey("funcionarios") as? NSArray {
+                    println(result)
+                    for item in items {
+                        var funcionario:Funcionario = Funcionario()
+                        var hasName = false
+                        if let foto:String = item.objectForKey("foto") as? String {
+                            funcionario.foto = foto
+                        }
+                        if let correo:String = item.objectForKey("correo") as? String{
+                            funcionario.correo = correo
+                        }
+                        if let nombre:String = item.objectForKey("nombre_completo") as? String {
+                            funcionario.nombre = nombre
+                            hasName = true
+                        }
+                        if let direccion:String = item.objectForKey("direccion") as? String {
+                            funcionario.direccion = direccion
+                        }
+                        if let telefono:String = item.objectForKey("telefono") as? String {
+                            funcionario.telefono = telefono
+                        }
+                        if let puesto:String = item.objectForKey("puesto") as? String {
+                            funcionario.puesto = puesto
+                        }
+                        if let dependencia:String = item.objectForKey("dependencia") as? String {
+                            funcionario.dependencia = dependencia
+                        }
+                        if let estado:String = item.objectForKey("estado") as? String {
+                            funcionario.estado = estado
+                        }
+                        
+                        if hasName {
+                            self.arrayFuncionarios.addObject(funcionario)
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+        funcionarios.resume()
+        
     }
     
     func getDependencias() {
@@ -74,11 +174,33 @@ class DirectorioViewController: UITableViewController {
             
             // handle the data of the successful response here
             
-            var result = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&err) as? NSDictionary
-            
-            
-            
-            println(result)
+            if let result:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&err) as? NSDictionary {
+                
+                
+                if let items  = result.objectForKey("dependencias") as? NSArray {
+                   // println(result)
+                    for item in items {
+                        var dependencia:Dependencia = Dependencia()
+                        var hasName = false
+                        if let slug:String = item.objectForKey("dependencia_slug") as? String {
+                            dependencia.slug = slug
+                        }
+                        if let dependencia_id:String = item.objectForKey("id_dependencia") as? String{
+                                dependencia.dependencia_id = dependencia_id
+                        }
+                        if let nombre:String = item.objectForKey("nombre_dependencia") as? String {
+                            dependencia.nombre = nombre
+                            hasName = true
+                        }
+                        if hasName {
+                            self.arrayDirectorio.addObject(dependencia)
+                        }
+                    }
+                    self.tableView.reloadData()
+        
+                }
+  
+             }
         }
         dependencias.resume()
     }
@@ -87,9 +209,32 @@ class DirectorioViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
+        let dependencia:Dependencia = arrayDirectorio[indexPath.row] as! Dependencia
+        
+        cell.textLabel?.text = dependencia.nombre
 
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let dependencia = arrayDirectorio[indexPath.row] as! Dependencia
+        let nombre = dependencia.nombre
+        
+        let dependenciaPredicate = NSPredicate(format: "dependencia  = %@", nombre)
+//        arrayFuncionarios.filterUsingPredicate(dependenciaPredicate)
+        filtrados =  arrayFuncionarios.filteredArrayUsingPredicate(dependenciaPredicate)
+        
+        
+        self.performSegueWithIdentifier("funcionarios_segue", sender: nil)
+        
+    
+
+       // self.navigationController?.pushViewController(controller, animated: true)
+        
+
+        //println(filtrados)
+    }
+    
     
 
     /*
@@ -127,14 +272,18 @@ class DirectorioViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "funcionarios_segue" {
+            var controller:FuncionariosViewController = segue.destinationViewController as! FuncionariosViewController
+            controller.arrayFuncionarios = filtrados
+        }
     }
-    */
+
 
 }

@@ -35,6 +35,9 @@
 		04A5A4DB1A8C1677007FDF1D /* ReciboViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */; };
 		04D3BE6B1A42561B00887740 /* ConsultaPredialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */; };
 		1D087C021B8440EF0082F64A /* DirectorioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D087C011B8440EF0082F64A /* DirectorioViewController.swift */; };
+		8FCE48951BB6567C00CCFE74 /* Dependencia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48941BB6567C00CCFE74 /* Dependencia.swift */; };
+		8FCE48971BB65CE100CCFE74 /* Funcionario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48961BB65CE100CCFE74 /* Funcionario.swift */; };
+		8FCE48991BB6644D00CCFE74 /* FuncionariosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */; };
 		C1CADC7A1A429F2F00DDA3FF /* DetPredialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CADC791A429F2F00DDA3FF /* DetPredialViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +84,9 @@
 		04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciboViewController.swift; sourceTree = "<group>"; };
 		04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsultaPredialViewController.swift; sourceTree = "<group>"; };
 		1D087C011B8440EF0082F64A /* DirectorioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectorioViewController.swift; sourceTree = "<group>"; };
+		8FCE48941BB6567C00CCFE74 /* Dependencia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dependencia.swift; path = Directorio/Dependencia.swift; sourceTree = "<group>"; };
+		8FCE48961BB65CE100CCFE74 /* Funcionario.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Funcionario.swift; path = Directorio/Funcionario.swift; sourceTree = "<group>"; };
+		8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FuncionariosViewController.swift; path = Directorio/FuncionariosViewController.swift; sourceTree = "<group>"; };
 		C1CADC791A429F2F00DDA3FF /* DetPredialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetPredialViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,6 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				1D087C011B8440EF0082F64A /* DirectorioViewController.swift */,
+				8FCE48941BB6567C00CCFE74 /* Dependencia.swift */,
+				8FCE48961BB65CE100CCFE74 /* Funcionario.swift */,
+				8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */,
 			);
 			name = Directorio;
 			sourceTree = "<group>";
@@ -336,10 +345,12 @@
 				04D3BE6B1A42561B00887740 /* ConsultaPredialViewController.swift in Sources */,
 				045A833D1A38CDEE009C6E69 /* Colors.swift in Sources */,
 				0431C84A1A366A0C0089152F /* ENSideMenu.swift in Sources */,
+				8FCE48971BB65CE100CCFE74 /* Funcionario.swift in Sources */,
 				045A833F1A3A1B54009C6E69 /* RootViewController.swift in Sources */,
 				041BA6AF1A3A31570055FCA1 /* Reachability.swift in Sources */,
 				043C120F1A3782C10028B104 /* ProblematicasViewController.swift in Sources */,
 				0431C8531A366E190089152F /* MenuTableViewController.swift in Sources */,
+				8FCE48991BB6644D00CCFE74 /* FuncionariosViewController.swift in Sources */,
 				C1CADC7A1A429F2F00DDA3FF /* DetPredialViewController.swift in Sources */,
 				043C12111A37BC3A0028B104 /* DetalleViewController.swift in Sources */,
 				0431C82A1A36697D0089152F /* ViewController.swift in Sources */,
@@ -353,6 +364,7 @@
 				043C120B1A3772D60028B104 /* SesionesViewController.swift in Sources */,
 				049F64ED1A701A8A00EC0418 /* SesionesCell.swift in Sources */,
 				1D087C021B8440EF0082F64A /* DirectorioViewController.swift in Sources */,
+				8FCE48951BB6567C00CCFE74 /* Dependencia.swift in Sources */,
 				043C12131A37BCEC0028B104 /* dosLabelsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
