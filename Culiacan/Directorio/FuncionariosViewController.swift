@@ -11,6 +11,7 @@ import UIKit
 class FuncionariosViewController: UITableViewController {
     
     var arrayFuncionarios:NSArray!
+    var funcionarioSelected:Funcionario!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,17 @@ class FuncionariosViewController: UITableViewController {
         let funcionario = arrayFuncionarios[indexPath.row] as! Funcionario
         
         cell.textLabel?.text = funcionario.nombre
+        cell.detailTextLabel?.text = funcionario.puesto
+        
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        funcionarioSelected = arrayFuncionarios[indexPath.row] as! Funcionario
+        
+        self.performSegueWithIdentifier("funcionario_detail", sender: nil)
     }
     
 
@@ -90,14 +100,18 @@ class FuncionariosViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "funcionario_detail" {
+            var controller:FuncionarioViewController = segue.destinationViewController as! FuncionarioViewController
+            controller.funcionario = funcionarioSelected
+        }
     }
-    */
+    
 
 }

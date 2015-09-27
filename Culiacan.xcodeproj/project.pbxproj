@@ -35,6 +35,10 @@
 		04A5A4DB1A8C1677007FDF1D /* ReciboViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */; };
 		04D3BE6B1A42561B00887740 /* ConsultaPredialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */; };
 		1D087C021B8440EF0082F64A /* DirectorioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D087C011B8440EF0082F64A /* DirectorioViewController.swift */; };
+		8F27D6C11BB76820004FA399 /* FuncionarioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */; };
+		8F27D6C51BB7753E004FA399 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C41BB7753E004FA399 /* LoadingView.swift */; };
+		8F27D6C71BB77573004FA399 /* UIView-Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C61BB77573004FA399 /* UIView-Additions.swift */; };
+		8F27D6C91BB776F3004FA399 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F27D6C81BB776F3004FA399 /* Foundation.framework */; };
 		8FCE48951BB6567C00CCFE74 /* Dependencia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48941BB6567C00CCFE74 /* Dependencia.swift */; };
 		8FCE48971BB65CE100CCFE74 /* Funcionario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48961BB65CE100CCFE74 /* Funcionario.swift */; };
 		8FCE48991BB6644D00CCFE74 /* FuncionariosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */; };
@@ -84,6 +88,10 @@
 		04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciboViewController.swift; sourceTree = "<group>"; };
 		04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsultaPredialViewController.swift; sourceTree = "<group>"; };
 		1D087C011B8440EF0082F64A /* DirectorioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectorioViewController.swift; sourceTree = "<group>"; };
+		8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FuncionarioViewController.swift; path = Directorio/FuncionarioViewController.swift; sourceTree = "<group>"; };
+		8F27D6C41BB7753E004FA399 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = Custom/UI/LoadingView.swift; sourceTree = "<group>"; };
+		8F27D6C61BB77573004FA399 /* UIView-Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView-Additions.swift"; path = "Custom/UI/UIView-Additions.swift"; sourceTree = "<group>"; };
+		8F27D6C81BB776F3004FA399 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FCE48941BB6567C00CCFE74 /* Dependencia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dependencia.swift; path = Directorio/Dependencia.swift; sourceTree = "<group>"; };
 		8FCE48961BB65CE100CCFE74 /* Funcionario.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Funcionario.swift; path = Directorio/Funcionario.swift; sourceTree = "<group>"; };
 		8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FuncionariosViewController.swift; path = Directorio/FuncionariosViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F27D6C91BB776F3004FA399 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +120,7 @@
 		0431C8191A36697D0089152F = {
 			isa = PBXGroup;
 			children = (
+				8F27D6C81BB776F3004FA399 /* Foundation.framework */,
 				0431C8241A36697D0089152F /* Culiacan */,
 				0431C83A1A36697E0089152F /* CuliacanTests */,
 				0431C8231A36697D0089152F /* Products */,
@@ -129,6 +139,7 @@
 		0431C8241A36697D0089152F /* Culiacan */ = {
 			isa = PBXGroup;
 			children = (
+				8F27D6C21BB77506004FA399 /* Custom */,
 				1D087BFE1B8440800082F64A /* Directorio */,
 				043C12061A3766470028B104 /* Api */,
 				0431C8271A36697D0089152F /* AppDelegate.swift */,
@@ -234,8 +245,26 @@
 				8FCE48941BB6567C00CCFE74 /* Dependencia.swift */,
 				8FCE48961BB65CE100CCFE74 /* Funcionario.swift */,
 				8FCE48981BB6644D00CCFE74 /* FuncionariosViewController.swift */,
+				8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */,
 			);
 			name = Directorio;
+			sourceTree = "<group>";
+		};
+		8F27D6C21BB77506004FA399 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				8F27D6C31BB77512004FA399 /* UIView */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		8F27D6C31BB77512004FA399 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				8F27D6C41BB7753E004FA399 /* LoadingView.swift */,
+				8F27D6C61BB77573004FA399 /* UIView-Additions.swift */,
+			);
+			name = UIView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,16 +379,19 @@
 				041BA6AF1A3A31570055FCA1 /* Reachability.swift in Sources */,
 				043C120F1A3782C10028B104 /* ProblematicasViewController.swift in Sources */,
 				0431C8531A366E190089152F /* MenuTableViewController.swift in Sources */,
+				8F27D6C71BB77573004FA399 /* UIView-Additions.swift in Sources */,
 				8FCE48991BB6644D00CCFE74 /* FuncionariosViewController.swift in Sources */,
 				C1CADC7A1A429F2F00DDA3FF /* DetPredialViewController.swift in Sources */,
 				043C12111A37BC3A0028B104 /* DetalleViewController.swift in Sources */,
 				0431C82A1A36697D0089152F /* ViewController.swift in Sources */,
+				8F27D6C11BB76820004FA399 /* FuncionarioViewController.swift in Sources */,
 				04A5A4D91A8BF339007FDF1D /* unLabelCell.swift in Sources */,
 				0431C8511A366D8D0089152F /* NavigationViewController.swift in Sources */,
 				04A5A4DB1A8C1677007FDF1D /* ReciboViewController.swift in Sources */,
 				043C120D1A3782060028B104 /* ProblematicaCell.swift in Sources */,
 				0431C8281A36697D0089152F /* AppDelegate.swift in Sources */,
 				04A5A4D71A8BC2D4007FDF1D /* PeriodoCell.swift in Sources */,
+				8F27D6C51BB7753E004FA399 /* LoadingView.swift in Sources */,
 				045A83411A3A1E40009C6E69 /* RootCell.swift in Sources */,
 				043C120B1A3772D60028B104 /* SesionesViewController.swift in Sources */,
 				049F64ED1A701A8A00EC0418 /* SesionesCell.swift in Sources */,

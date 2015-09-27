@@ -17,6 +17,12 @@ class DirectorioViewController: UITableViewController {
         super.viewDidLoad()
         arrayDirectorio = []
         arrayFuncionarios  = []
+        
+        self.view.startLoading("Cargando")
+       // self.navigationController!.view.startLoading(NSLocalizedString("Saving...", comment:"Saving..."))
+        
+        
+
         getFuncionarios()
         getDependencias()
         
@@ -197,6 +203,7 @@ class DirectorioViewController: UITableViewController {
                         }
                     }
                     self.tableView.reloadData()
+                    self.view.stopLoading()
         
                 }
   

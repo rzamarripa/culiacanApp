@@ -7,22 +7,18 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>8AFB3416-6ED6-4CBC-A369-5D3628614EB9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Culiacan</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>3F04594E272A5BAEFDBF66B64C86937DEA654007</key>
 		<string>https://github.com/rzamarripa/culiacanApp.git</string>
-		<key>C98CBF9DCEBB5008FDFFC2CB6E2D9944B4205049</key>
-		<string>https://bitbucket.org/sozdiex/culiacan.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Culiacan.xcodeproj</string>
+	<string>Culiacan.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3F04594E272A5BAEFDBF66B64C86937DEA654007</key>
 		<string>../..</string>
-		<key>C98CBF9DCEBB5008FDFFC2CB6E2D9944B4205049</key>
-		<string>../../../culiacan</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/rzamarripa/culiacanApp.git</string>
@@ -32,14 +28,6 @@
 	<string>3F04594E272A5BAEFDBF66B64C86937DEA654007</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C98CBF9DCEBB5008FDFFC2CB6E2D9944B4205049</string>
-			<key>IDESourceControlWCCName</key>
-			<string>culiacan</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
