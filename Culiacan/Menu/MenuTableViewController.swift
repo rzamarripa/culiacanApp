@@ -11,7 +11,7 @@ import UIKit
 class MenuTableViewController: UITableViewController {
 
     var selectedMenuItem : Int = 0
-    var arrayMenu : NSMutableArray = ["Inicio", "Cabildo Abierto", "Consultar Predial", "Directorio"];
+    var arrayMenu : NSMutableArray = ["Inicio", "Consultar Predial", "Directorio"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,18 +82,17 @@ class MenuTableViewController: UITableViewController {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
         var destViewController : UIViewController!
         switch (indexPath.row) {
-        case 0:
-        
+        case 0:        
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("RootViewController") as! UIViewController
             break
         case 1:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SesionesViewController") as! UIViewController
-            break
-        case 2:
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ConsultaPredialViewController") as! UIViewController
             break
-        case 3:
+        case 2:
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("DirectorioViewController") as! UIViewController
+            break
+        case 3:
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SesionesViewController") as! UIViewController
             break
         default:
             return
