@@ -171,6 +171,7 @@ class DirectorioViewController: UITableViewController {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
         } catch let error as NSError {
             err = error
+
             request.HTTPBody = nil
         }
         
