@@ -18,22 +18,27 @@ class Fetcher: NSObject {
     class func callListSesiones() -> NSDictionary {
         let action = "/cabildoabierto/sesiones?limit=1000"
         let appUrlPath = kAppUrl+action
-        println(appUrlPath)//Imprimir Url en Consola
+        print(appUrlPath)//Imprimir Url en Consola
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
     
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
 
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            println(jsonResult)
+            let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+            print(jsonResult)
             return jsonResult
         }
         
@@ -43,22 +48,27 @@ class Fetcher: NSObject {
     
     class func callListProblematicasBy(action: String) -> NSDictionary{
         let appUrlPath = kAppUrl + action
-        println("url lista problematicas : \(appUrlPath)")
+        print("url lista problematicas : \(appUrlPath)")
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
         
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            println(jsonResult)
+            let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+            print(jsonResult)
             return jsonResult
         }
         
@@ -69,22 +79,27 @@ class Fetcher: NSObject {
     class func callListAsignacionBy(id_problematicas: Int) -> NSDictionary {
         let action = "/cabildoabierto/asignaciones?id_problematica="
         let appUrlPath = kAppUrl + action + String(id_problematicas)
-        println(appUrlPath)
+        print(appUrlPath)
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
         
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            println(jsonResult)
+            let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+            print(jsonResult)
             return jsonResult
         }
         
@@ -95,22 +110,27 @@ class Fetcher: NSObject {
     class func callListDepartamentos() -> NSDictionary {
         let action = "/cabildoabierto/departamentos?limit=1000"
         let appUrlPath = kAppUrl+action
-        println(appUrlPath)//Imprimir Url en Consola
+        print(appUrlPath)//Imprimir Url en Consola
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
         
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            println(jsonResult)
+            let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+            print(jsonResult)
             return jsonResult
         }
         
@@ -120,22 +140,27 @@ class Fetcher: NSObject {
     class func callListComisiones() -> NSDictionary {
         let action = "/cabildoabierto/comisiones?limit=1000"
         let appUrlPath = kAppUrl+action
-        println(appUrlPath)//Imprimir Url en Consola
+        print(appUrlPath)//Imprimir Url en Consola
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
         
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            println(jsonResult)
+            let jsonResult: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+            print(jsonResult)
             return jsonResult
         }
         
@@ -143,7 +168,7 @@ class Fetcher: NSObject {
     }
     
     class func getHeightFrom(texto : String, font: UIFont, width: CGFloat) -> CGFloat{
-        var labelTexto : UILabel = UILabel(frame: CGRectMake(0, 0, width, 9999))
+        let labelTexto : UILabel = UILabel(frame: CGRectMake(0, 0, width, 9999))
         //var labelTexto : UILabel = UILabel(frame: CGRectMake(0, 0, 270.0, 9999))
         labelTexto.text = texto
         labelTexto.font = font
@@ -161,22 +186,27 @@ class Fetcher: NSObject {
     class func callPredialBy(num_predial : String) -> NSDictionary {
         let action = "/mipredio/"
         let appUrlPath = kAppUrlPredial + action + num_predial
-        println(appUrlPath)
+        print(appUrlPath)
         
-        var url : NSURL = NSURL(string: appUrlPath)!
-        var request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let url : NSURL = NSURL(string: appUrlPath)!
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
-        var response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        var error : NSErrorPointer = nil
+        let response : AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        let error : NSErrorPointer = nil
         
         var returnData : NSData!
-        returnData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error: error)
+        do {
+            returnData =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        } catch let error1 as NSError {
+            error.memory = error1
+            returnData = nil
+        }
         var err : NSError
         
         if returnData != nil {
-            if var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary {
-                println(jsonResult)
+            if let jsonResult: NSDictionary = (try? NSJSONSerialization.JSONObjectWithData(returnData, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary {
+                print(jsonResult)
                 return jsonResult
             }
         }
@@ -185,6 +215,6 @@ class Fetcher: NSObject {
     }
     
     class func funcEjemplo(Num: Int){
-        println(Num)
+        print(Num)
     }
 }

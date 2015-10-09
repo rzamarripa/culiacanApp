@@ -27,7 +27,7 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         hardCode()
-        println("id sesion:\(id_sesion)")
+        print("id sesion:\(id_sesion)")
     
     }
 
@@ -43,7 +43,7 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "pushDetalles"{
-            var DetalleVC : DetalleViewController = segue.destinationViewController as! DetalleViewController
+            let DetalleVC : DetalleViewController = segue.destinationViewController as! DetalleViewController
             DetalleVC.id_problematica = id_problematica
             DetalleVC.urlArchivo = "http://apps.culiacan.gob.mx/cabildo-abierto/adjuntos/" + String(nombreArchivo)
         }
@@ -57,9 +57,9 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - hard code
     
     func hardCode(){
-        var downloadListProblematicas : dispatch_queue_t = dispatch_queue_create("callListProblematicas", nil)
+        let downloadListProblematicas : dispatch_queue_t = dispatch_queue_create("callListProblematicas", nil)
         
-        var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        let spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         spinner.center = CGPointMake(UIScreen.mainScreen().applicationFrame.size.width/2, UIScreen.mainScreen().applicationFrame.size.height/2)
         spinner.color = UIColor.blackColor()
         self.view.addSubview(spinner)
@@ -67,7 +67,7 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
         
         dispatch_async(downloadListProblematicas, {
             self.arrayProblematicas = []
-            var dic : NSDictionary = Fetcher.callListProblematicasBy("/cabildoabierto/problematicas?id_sesion=\(self.id_sesion)")
+            let dic : NSDictionary = Fetcher.callListProblematicasBy("/cabildoabierto/problematicas?id_sesion=\(self.id_sesion)")
             
             if dic.objectForKey("objects") != nil {
                 self.arrayProblematicas = dic.objectForKey("objects") as! NSMutableArray
@@ -88,9 +88,9 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     func loadNext(){
-        var downloandNext : dispatch_queue_t = dispatch_queue_create("callNextList", nil)
+        let downloandNext : dispatch_queue_t = dispatch_queue_create("callNextList", nil)
         dispatch_async(downloandNext, {
-            var dic : NSDictionary = Fetcher.callListProblematicasBy(self.dicMeta.objectForKey("next") as! String) as NSDictionary
+            let dic : NSDictionary = Fetcher.callListProblematicasBy(self.dicMeta.objectForKey("next") as! String) as NSDictionary
             
             if dic.objectForKey("objects") != nil{
                 for dicFor in dic.objectForKey("objects") as! NSArray {
@@ -114,15 +114,15 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : ProblematicaCell = tableView.dequeueReusableCellWithIdentifier("ProblematicaCell") as! ProblematicaCell
-        var dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
+        let cell : ProblematicaCell = tableView.dequeueReusableCellWithIdentifier("ProblematicaCell") as! ProblematicaCell
+        let dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
         cell.lblFolio.text = String(dic.objectForKey("id_problematica") as! Int)
         cell.lblResponsable.text = dic.objectForKey("ponente_designado") as? String
         cell.lblProblema.text = dic.objectForKey("titulo") as? String
         
         if indexPath.row == arrayProblematicas.count - 1 {
             if (dicMeta.objectForKey("next") as? String != nil) {
-                var spinnerFooter : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+                let spinnerFooter : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
                 spinnerFooter.frame = CGRectMake(0, 0, UIScreen.mainScreen().applicationFrame.size.width , 44)
                 spinnerFooter.color = UIColor.blackColor()
                 spinnerFooter.startAnimating()
@@ -140,7 +140,7 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - TableView Delegate
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
+        let dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
         var height : CGFloat = 40
         height += Fetcher.getHeightFrom(dic.objectForKey("titulo") as! String, font: UIFont(name: "Arial", size: 19.0)!, width: 270.0)
         return height;
@@ -150,7 +150,7 @@ class ProblematicasViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        var dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
+        let dic : NSDictionary = arrayProblematicas.objectAtIndex(indexPath.row) as! NSDictionary
         id_problematica = dic.objectForKey("id_problematica") as! Int
         nombreArchivo = dic.objectForKey("archivo") as! String
         

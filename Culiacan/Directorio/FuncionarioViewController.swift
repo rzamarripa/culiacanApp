@@ -53,10 +53,10 @@ class FuncionarioViewController: UIViewController {
     
     
     func downloadImage(url:NSURL){
-        println("Started downloading \"\(url.lastPathComponent!.stringByDeletingPathExtension)\".")
+       // print("Started downloading \"\(url.lastPathComponent!.stringByDeletingPathExtension)\".")
         getDataFromUrl(url) { data in
             dispatch_async(dispatch_get_main_queue()) {
-                println("Finished downloading \"\(url.lastPathComponent!.stringByDeletingPathExtension)\".")
+               // print("Finished downloading \"\(url.lastPathComponent!.stringByDeletingPathExtension)\".")
                 self.fotoImage.image = UIImage(data: data!)
             }
         }

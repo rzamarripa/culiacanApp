@@ -46,7 +46,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
         if segue.identifier == "pushDetPredial" {
             let DetPredialVC:DetPredialViewController = segue.destinationViewController as! DetPredialViewController
-            DetPredialVC.id_predial = lblMUN.text + lblPOB.text + lblCUA.text + lblMAN.text + lblPRE.text + lblUNI.text
+            DetPredialVC.id_predial = lblMUN.text! + lblPOB.text! + lblCUA.text! + lblMAN.text! + lblPRE.text! + lblUNI.text!
         }
     }
     
@@ -59,7 +59,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
             return true
         }else if textField == lblMUN {
             if range.location == 1 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 lblPOB.becomeFirstResponder()
                 return false
             } else if range.location > 2{
@@ -67,7 +67,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
             }
         }else if textField == lblPOB {
             if range.location == 2 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 lblCUA.becomeFirstResponder()
                 return false
             } else if range.location > 2{
@@ -75,7 +75,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
             }
         }else if textField == lblCUA {
             if range.location == 2 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 lblMAN.becomeFirstResponder()
                 return false
             } else if range.location > 2{
@@ -83,7 +83,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
             }
         }else if textField == lblMAN {
             if range.location == 2 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 lblPRE.becomeFirstResponder()
                 return false
             } else if range.location > 2{
@@ -91,7 +91,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
             }
         }else if textField == lblPRE {
             if range.location == 2 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 lblUNI.becomeFirstResponder()
                 return false
             } else if range.location > 2{
@@ -100,7 +100,7 @@ class ConsultaPredialViewController: UIViewController, UITextFieldDelegate {
         }
         else if textField == lblUNI {
             if range.location == 2 {
-                textField.text = textField.text + string
+                textField.text = textField.text! + string
                 textField.resignFirstResponder()
                 self.view.endEditing(true)
                 return false

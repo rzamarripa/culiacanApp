@@ -24,7 +24,7 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
         
         arrayTitulos = [["Nombre","Domicilio","Cle. Catastral"],["Lugar", "Colonia", "Población", "Valor Catastral", "Sup. Terreno", "Sup. Contruída", "Tipo"],["uno","dos","tres","Cuatro","Total"]]
         
-        println("numero predial: " + id_predial)
+        print("numero predial: " + id_predial)
         
         callService()
     }
@@ -36,23 +36,23 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
     // MARK: - Hard Code
     func callService() {
         if Reachability.isConnectedToNetwork() {
-            var downloadQueue :dispatch_queue_t = dispatch_queue_create("callListSesion", nil)
+            let downloadQueue :dispatch_queue_t = dispatch_queue_create("callListSesion", nil)
             
-            var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+            let spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
             spinner.center = CGPointMake(UIScreen.mainScreen().applicationFrame.size.width/2.0, UIScreen.mainScreen().applicationFrame.size.height/2.0)
             spinner.color = UIColor.blackColor()
             self.view.addSubview(spinner)
             spinner.startAnimating()
             
             dispatch_async(downloadQueue, {
-                var dic : NSDictionary = Fetcher.callPredialBy(self.id_predial)
+                let dic : NSDictionary = Fetcher.callPredialBy(self.id_predial)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     if dic != NSDictionary() {
                         if dic.objectForKey("Id_Contribuyente") as! String == "0"{
                             UIAlertView(title: "Advertencia", message: "La clave no es válida", delegate: self, cancelButtonTitle: "Aceptar").show()
                         }else{
-                            println(dic)
+                            print(dic)
                             self.dicInfo = dic
                             // Reload TableView
                             self.makeRows()
@@ -114,47 +114,47 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section <= 1 {
-            var cell : dosLabelsCell  = tableView.dequeueReusableCellWithIdentifier("dosLabelsCell") as! dosLabelsCell
+            let cell : dosLabelsCell  = tableView.dequeueReusableCellWithIdentifier("dosLabelsCell") as! dosLabelsCell
             
             cell.lblTitulo.text = arrayTitulos[indexPath.section][indexPath.row] as? String
             cell.lblDescripcion.text = arrayContenido[indexPath.section][indexPath.row] as? String
             
             return cell
         } else if indexPath.section == 2 && indexPath.row < arrayDeuda.count  {
-            var cell : PeriodoCell = tableView.dequeueReusableCellWithIdentifier("PeriodoCell") as! PeriodoCell
+            let cell : PeriodoCell = tableView.dequeueReusableCellWithIdentifier("PeriodoCell") as! PeriodoCell
             cell.viewPrincipal.layer.borderWidth = 1
             cell.viewPrincipal.layer.borderColor = UIColor.lightGrayColor().CGColor
             cell.viewPrincipal.layer.shadowRadius = 3
             cell.viewPrincipal.layer.shadowColor  = UIColor.blackColor().CGColor
             cell.viewPrincipal.layer.shadowOpacity = 0.3
             
-            var dic : NSDictionary = arrayDeuda.objectAtIndex(indexPath.row) as! NSDictionary
+            let dic : NSDictionary = arrayDeuda.objectAtIndex(indexPath.row) as! NSDictionary
             var fecha = dic.objectForKey("anio") as! String + "-"
             fecha += dic.objectForKey("trimestre") as! String
             cell.lblPeriodo.text = "Periodo: " + fecha
             
-            var Princiapl = dic.objectForKey("principal") as! NSString
+            let Princiapl = dic.objectForKey("principal") as! NSString
             cell.lblPrincipal.text = "Principal: " + floatToMoney(Princiapl)
             
-            var social = dic.objectForKey("asistencia_social") as! NSString!
+            let social = dic.objectForKey("asistencia_social") as! NSString!
             cell.lblSocial.text = "A. Social: " + floatToMoney(social)
             
-            var desct = dic.objectForKey("descuento") as! NSString!
+            let desct = dic.objectForKey("descuento") as! NSString!
             cell.lblDesct.text = "Desct: " + floatToMoney(desct)
             
-            var prontoP =  dic.objectForKey("prontopago") as! NSString!
+            let prontoP =  dic.objectForKey("prontopago") as! NSString!
             cell.lblProntoPago.text = "Pronto P.: " + floatToMoney(prontoP)
             
-            var jubilados = dic.objectForKey("jubilados") as! NSString!
+            let jubilados = dic.objectForKey("jubilados") as! NSString!
             cell.lblJubilados.text = "Jubilados: " + floatToMoney(jubilados)
             
-            var recargos = dic.objectForKey("recargos") as! NSString
+            let recargos = dic.objectForKey("recargos") as! NSString
             cell.lblRecargos.text = "Recargos: " + floatToMoney(recargos)
             
-            var multas =  dic.objectForKey("multas") as! NSString
+            let multas =  dic.objectForKey("multas") as! NSString
             cell.lblMultas.text = "Multas: " + floatToMoney(multas)
             
-            var total = social.doubleValue + multas.doubleValue + recargos.doubleValue + prontoP.doubleValue + desct.doubleValue + Princiapl.doubleValue
+            let total = social.doubleValue + multas.doubleValue + recargos.doubleValue + prontoP.doubleValue + desct.doubleValue + Princiapl.doubleValue
             
             cell.lblTotal.text = "Total: " + floatToMoney("\(total)")
             
@@ -167,20 +167,20 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
             
             return cell
         } else if indexPath.section == 2 && indexPath.row == arrayDeuda.count  {
-            var cell : unLabelCell = tableView.dequeueReusableCellWithIdentifier("TotalCell") as! unLabelCell
+            let cell : unLabelCell = tableView.dequeueReusableCellWithIdentifier("TotalCell") as! unLabelCell
             var TotalPeriodos : Double = 0.00
             
             if checkPeriodo >= 0 {
                 for index in 0...checkPeriodo {
-                    var dic : NSDictionary = arrayDeuda.objectAtIndex(index) as! NSDictionary
-                    var Princiapl = dic.objectForKey("principal") as! NSString
-                    var social = dic.objectForKey("asistencia_social") as! NSString!
-                    var desct = dic.objectForKey("descuento") as! NSString!
-                    var prontoP =  dic.objectForKey("prontopago") as! NSString!
+                    let dic : NSDictionary = arrayDeuda.objectAtIndex(index) as! NSDictionary
+                    let Princiapl = dic.objectForKey("principal") as! NSString
+                    let social = dic.objectForKey("asistencia_social") as! NSString!
+                    let desct = dic.objectForKey("descuento") as! NSString!
+                    let prontoP =  dic.objectForKey("prontopago") as! NSString!
                     var jubilados = dic.objectForKey("jubilados") as! NSString!
-                    var recargos = dic.objectForKey("recargos") as! NSString
-                    var multas =  dic.objectForKey("multas") as! NSString
-                    var total = social.doubleValue + multas.doubleValue + recargos.doubleValue + prontoP.doubleValue + desct.doubleValue + Princiapl.doubleValue
+                    let recargos = dic.objectForKey("recargos") as! NSString
+                    let multas =  dic.objectForKey("multas") as! NSString
+                    let total = social.doubleValue + multas.doubleValue + recargos.doubleValue + prontoP.doubleValue + desct.doubleValue + Princiapl.doubleValue
                     TotalPeriodos = TotalPeriodos + total
                 }
             }
@@ -188,19 +188,19 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
             cell.lblUno.text = "Total a pagar: " + floatToMoney("\(TotalPeriodos)")
             return cell
         }else if indexPath.section == 2 && indexPath.row == arrayDeuda.count + 1 {
-            return tableView.dequeueReusableCellWithIdentifier("EnviarCell") as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("EnviarCell") as UITableViewCell!
         }else {
-            return tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell!
         }
         
     }
     
     func floatToMoney(stringNumber: NSString) -> String {
-        var precio = stringNumber.floatValue
-        var commas : NSNumberFormatter = NSNumberFormatter() as NSNumberFormatter
+        let precio = stringNumber.floatValue
+        let commas : NSNumberFormatter = NSNumberFormatter() as NSNumberFormatter
         commas.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         commas.maximumFractionDigits = 2
-        var precioString : NSString =  commas.stringFromNumber(NSNumber(float: precio))!
+        let precioString : NSString =  commas.stringFromNumber(NSNumber(float: precio))!
         return precioString as String
     }
     
@@ -224,10 +224,10 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var HeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        let HeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         HeaderView.backgroundColor = UIColor.whiteColor()
         
-        var label = UILabel(frame: CGRect(x: 10, y: 15, width: 300, height: 21))
+        let label = UILabel(frame: CGRect(x: 10, y: 15, width: 300, height: 21))
         label.font = UIFont.boldSystemFontOfSize(18.0)
         if section == 0 {
             label.text = "Datos del contribuyente"
@@ -269,9 +269,9 @@ class DetPredialViewController: UIViewController, UIAlertViewDelegate, UITableVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "pushRecibo" {
-            var viewController = segue.destinationViewController as! ReciboViewController
+            let viewController = segue.destinationViewController as! ReciboViewController
             
-            var dic : NSDictionary = arrayDeuda.objectAtIndex(checkPeriodo) as! NSDictionary
+            let dic : NSDictionary = arrayDeuda.objectAtIndex(checkPeriodo) as! NSDictionary
             var fecha = dic.objectForKey("anio") as! String
             fecha += dic.objectForKey("trimestre") as! String
             viewController.urlArchivo = "https://pagos.culiacan.gob.mx/mirecibo/\(id_predial)/\(fecha)"

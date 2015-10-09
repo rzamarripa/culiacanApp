@@ -311,6 +311,8 @@
 		0431C81A1A36697D0089152F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = RedRabbit;
 				TargetAttributes = {

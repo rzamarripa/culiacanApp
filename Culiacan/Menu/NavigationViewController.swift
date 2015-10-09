@@ -30,14 +30,14 @@ class NavigationViewController: ENSideMenuNavigationController, ENSideMenuDelega
     
     //MARK: - ENSideMenu Delegate
     func sideMenuWillOpen() {
-        println("sideMenuWillOpen")
+        print("sideMenuWillOpen")
         view2 = UIView(frame: CGRectMake(245,65,1000,1000))
         view2.backgroundColor = UIColor.clearColor()
         self.view.addSubview(view2)
     }
     
     func sideMenuWillClose() {
-        println("sideMenuWillClose")
+        print("sideMenuWillClose")
         if (view2 != nil) {
             view2.removeFromSuperview()
         }

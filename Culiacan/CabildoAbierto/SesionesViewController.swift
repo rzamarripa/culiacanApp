@@ -34,7 +34,7 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "pushProblematicas" {
-            var sesionVC : ProblematicasViewController = segue.destinationViewController as! ProblematicasViewController
+            let sesionVC : ProblematicasViewController = segue.destinationViewController as! ProblematicasViewController
             sesionVC.id_sesion = id_SesionSelected
         }
     }
@@ -64,7 +64,7 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
         viewReload.addSubview(imageViewReload)
         
         
-        var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapRefresh"))
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapRefresh"))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
         viewReload.addGestureRecognizer(tapGesture)
@@ -75,9 +75,9 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
     func loadList(){
         if Reachability.isConnectedToNetwork() {
             viewReload.hidden = true
-            var downloadQueue :dispatch_queue_t = dispatch_queue_create("callListSesion", nil)
+            let downloadQueue :dispatch_queue_t = dispatch_queue_create("callListSesion", nil)
             
-            var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+            let spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
             spinner.center = CGPointMake(UIScreen.mainScreen().applicationFrame.size.width/2.0, UIScreen.mainScreen().applicationFrame.size.height/2.0)
             spinner.color = UIColor.blackColor()
             self.view.addSubview(spinner)
@@ -85,21 +85,21 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
             
             dispatch_async(downloadQueue, {
                 self.arraySesiones = []
-                var dic : NSDictionary = Fetcher.callListSesiones()
+                let dic : NSDictionary = Fetcher.callListSesiones()
                 if (dic.objectForKey("objects") != nil){
-                    var arraySesionesTemp = dic.objectForKey("objects") as! NSMutableArray
-                    var yearFormmater : NSDateFormatter = NSDateFormatter()
+                    let arraySesionesTemp = dic.objectForKey("objects") as! NSMutableArray
+                    let yearFormmater : NSDateFormatter = NSDateFormatter()
                     yearFormmater.dateFormat = "yyyy"
-                    var formmater : NSDateFormatter = NSDateFormatter()
+                    let formmater : NSDateFormatter = NSDateFormatter()
                     formmater.dateFormat = "yyyy-mm-DD"
                     
                     self.arraySesiones = NSMutableArray()
                     self.arrayYearSesiones = NSMutableArray()
-                    let yearNow : Int  = yearFormmater.stringFromDate(NSDate()).toInt()!
+                    let yearNow : Int  = Int(yearFormmater.stringFromDate(NSDate()))!
                     for anio in 2012...yearNow {
-                        var arrayTemp : NSMutableArray = NSMutableArray()
+                        let arrayTemp : NSMutableArray = NSMutableArray()
                         for dic in arraySesionesTemp {
-                            var currentYear : Int = yearFormmater.stringFromDate(formmater.dateFromString(dic.objectForKey("fecha") as! String) as NSDate!).toInt()!
+                            let currentYear : Int = Int(yearFormmater.stringFromDate(formmater.dateFromString(dic.objectForKey("fecha") as! String) as NSDate!))!
                             if anio == currentYear {
                                 arrayTemp.addObject(dic)
                             }
@@ -145,8 +145,8 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
         var reusableView : UICollectionReusableView = UICollectionReusableView()
         
         if kind == UICollectionElementKindSectionHeader {
-            var reusableHeaderView : UICollectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! UICollectionHeaderView
-            var title : String = self.arrayYearSesiones.objectAtIndex(indexPath.section) as! String
+            let reusableHeaderView : UICollectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! UICollectionHeaderView
+            let title : String = self.arrayYearSesiones.objectAtIndex(indexPath.section) as! String
             reusableHeaderView.lblSesion.text =  "SESIONES " + title
             reusableView = reusableHeaderView;
         }
@@ -155,17 +155,17 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell : SesionesCell = collectionView.dequeueReusableCellWithReuseIdentifier("SesionesCell", forIndexPath: indexPath) as! SesionesCell
-        var dic : NSDictionary = arraySesiones.objectAtIndex(indexPath.section).objectAtIndex(indexPath.row) as! NSDictionary
-        var formatter : NSDateFormatter = NSDateFormatter()
+        let cell : SesionesCell = collectionView.dequeueReusableCellWithReuseIdentifier("SesionesCell", forIndexPath: indexPath) as! SesionesCell
+        let dic : NSDictionary = arraySesiones.objectAtIndex(indexPath.section).objectAtIndex(indexPath.row) as! NSDictionary
+        let formatter : NSDateFormatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        var date : NSDate = formatter.dateFromString(dic.objectForKey("fecha") as! String)!
+        let date : NSDate = formatter.dateFromString(dic.objectForKey("fecha") as! String)!
         formatter.dateFormat = "MMMM"
         formatter.locale = NSLocale(localeIdentifier: "es_GB")
         cell.lblMes.text = formatter.stringFromDate(date)
         cell.lblSesion.text = String(indexPath.row + 1)
         
-        var viewBack : UIView = UIView(frame: CGRectMake(0, 0, 100, 100))
+        let viewBack : UIView = UIView(frame: CGRectMake(0, 0, 100, 100))
         viewBack.backgroundColor = Colors.tinto()
         cell.selectedBackgroundView = viewBack
         
@@ -178,7 +178,7 @@ class SesionesViewController: UIViewController, UICollectionViewDataSource, UICo
     
     // MARK: - CollecionView Delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var dic : NSDictionary = arraySesiones.objectAtIndex(indexPath.section).objectAtIndex(indexPath.row) as! NSDictionary
+        let dic : NSDictionary = arraySesiones.objectAtIndex(indexPath.section).objectAtIndex(indexPath.row) as! NSDictionary
         id_SesionSelected = dic.objectForKey("id_sesion") as! Int
         collectionView.deselectItemAtIndexPath(indexPath, animated: true)
         self.performSegueWithIdentifier("pushProblematicas", sender: self)

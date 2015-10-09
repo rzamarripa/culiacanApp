@@ -22,23 +22,19 @@ public class Reachability {
     */
     class func isConnectedToNetwork() -> Bool {
         
-        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
-        
         let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
         }
-        
-        var flags: SCNetworkReachabilityFlags = 0
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
             return false
         }
-        
-        let isReachable = (flags & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        
-        return (isReachable && !needsConnection) ? true : false
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
     }
     
     class func isConnectedToNetworkOfType() -> ReachabilityType {
@@ -50,16 +46,17 @@ public class Reachability {
         
         
         let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
         }
         
-        var flags: SCNetworkReachabilityFlags = 0
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
             return .NotConnected
         }
         
-        let isReachable = (flags & UInt32(kSCNetworkFlagsReachable)) != 0
-        let isWWAN = (flags & UInt32(kSCNetworkReachabilityFlagsIsWWAN)) != 0
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+
+        let isWWAN = (flags.rawValue & SCNetworkReachabilityFlags.IsWWAN.rawValue) != 0
         //let isWifI = (flags & UInt32(kSCNetworkReachabilityFlagsReachable)) != 0
         
         if(isReachable && isWWAN){
@@ -76,8 +73,8 @@ public class Reachability {
     }
     
     class func initApp() -> Bool{
-        var dateActual = NSDate()
-        var formatter:NSDateFormatter = NSDateFormatter()
+        let dateActual = NSDate()
+        let formatter:NSDateFormatter = NSDateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         if formatter.stringFromDate(dateActual) == "31/12/2014" {
             exit(0)

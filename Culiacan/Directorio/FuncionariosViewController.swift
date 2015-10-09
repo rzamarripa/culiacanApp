@@ -44,7 +44,7 @@ class FuncionariosViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
         //let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier") as! UITableViewCell
 
         // Configure the cell...
@@ -108,7 +108,7 @@ class FuncionariosViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "funcionario_detail" {
-            var controller:FuncionarioViewController = segue.destinationViewController as! FuncionarioViewController
+            let controller:FuncionarioViewController = segue.destinationViewController as! FuncionarioViewController
             controller.funcionario = funcionarioSelected
         }
     }

@@ -36,7 +36,7 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "pushDescarga" {
-            var SolicitudVC: SolicitudViewController = segue.destinationViewController as! SolicitudViewController
+            let SolicitudVC: SolicitudViewController = segue.destinationViewController as! SolicitudViewController
             SolicitudVC.urlArchivo = urlArchivo;
         }
     }
@@ -47,9 +47,9 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - hard code
     func hardCode(){
-        var downloadListProblematicas : dispatch_queue_t = dispatch_queue_create("callListProblematicas", nil)
+        let downloadListProblematicas : dispatch_queue_t = dispatch_queue_create("callListProblematicas", nil)
         
-        var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        let spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         spinner.center = CGPointMake(UIScreen.mainScreen().applicationFrame.size.width/2, UIScreen.mainScreen().applicationFrame.size.height/2)
         spinner.color = UIColor.blackColor()
         self.view.addSubview(spinner)
@@ -68,19 +68,19 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func callServices(){
-        var arrayDepartamentos : NSMutableArray = []
-        var arrayComisiones : NSMutableArray = []
+        let arrayDepartamentos : NSMutableArray = []
+        let arrayComisiones : NSMutableArray = []
         
         var dic : NSDictionary = Fetcher.callListDepartamentos()
-        var arrayDep : NSMutableArray = dic.objectForKey("objects") as! NSMutableArray
+        let arrayDep : NSMutableArray = dic.objectForKey("objects") as! NSMutableArray
         
         dic = Fetcher.callListComisiones()
-        var arrayCom : NSMutableArray = dic.objectForKey("objects") as! NSMutableArray
+        let arrayCom : NSMutableArray = dic.objectForKey("objects") as! NSMutableArray
         
         dic = Fetcher.callListAsignacionBy(id_problematica)
         
         for dicFor in dic.objectForKey("objects") as! NSMutableArray {
-            var MutDic : NSMutableDictionary = NSMutableDictionary()
+            let MutDic : NSMutableDictionary = NSMutableDictionary()
             if dicFor.objectForKey("tipo") as! String == "DEPARTAMENTO"{
                 for dicDep in arrayDep {
                     if dicFor.objectForKey("asignada") as! Int == dicDep.objectForKey("id_departamento")  as! Int{
@@ -114,13 +114,13 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
             arrayTitulos.addObject("COMISIONES")
         }
         
-        var dicDescarga : NSDictionary = ["tipo": "descarga", "titulo": "Solicitud"]
-        var arrayDescarga : NSMutableArray = NSMutableArray()
+        let dicDescarga : NSDictionary = ["tipo": "descarga", "titulo": "Solicitud"]
+        let arrayDescarga : NSMutableArray = NSMutableArray()
         arrayDescarga.addObject(dicDescarga)
         array.addObject(arrayDescarga)
         arrayTitulos.addObject("ACCIONES")
         
-        println(array)
+        print(array)
         
     }
     
@@ -138,14 +138,14 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var dic : NSDictionary = (array.objectAtIndex(indexPath.section) as! NSMutableArray).objectAtIndex(indexPath.row) as! NSDictionary
+        let dic : NSDictionary = (array.objectAtIndex(indexPath.section) as! NSMutableArray).objectAtIndex(indexPath.row) as! NSDictionary
         
         if dic.objectForKey("tipo") as! String == "descarga"{
-            var cellDescarga : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
+            let cellDescarga : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell!
             return cellDescarga;
         }
         
-        var cell : dosLabelsCell = tableView.dequeueReusableCellWithIdentifier("dosLabelsCell") as! dosLabelsCell
+        let cell : dosLabelsCell = tableView.dequeueReusableCellWithIdentifier("dosLabelsCell") as! dosLabelsCell
         cell.lblTitulo.text = dic.objectForKey("titulo") as? String
         cell.lblTitulo.textAlignment = NSTextAlignment.Center
         cell.lblDescripcion.text = dic.objectForKey("descripcion") as? String
@@ -162,7 +162,7 @@ class DetalleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var dic : NSDictionary = (array.objectAtIndex(indexPath.section) as! NSMutableArray).objectAtIndex(indexPath.row) as! NSDictionary
+        let dic : NSDictionary = (array.objectAtIndex(indexPath.section) as! NSMutableArray).objectAtIndex(indexPath.row) as! NSDictionary
         
         if dic.objectForKey("tipo") as! String != "descarga"{
             var height: CGFloat = 0

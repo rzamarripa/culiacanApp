@@ -24,8 +24,8 @@ class SolicitudViewController: UIViewController, UIWebViewDelegate {
         self.view.addSubview(spinner)
         spinner.startAnimating()
         
-        var nsUrl : NSURL = NSURL(string: urlArchivo)!
-        var request : NSURLRequest = NSURLRequest(URL: nsUrl)
+        let nsUrl : NSURL = NSURL(string: urlArchivo)!
+        let request : NSURLRequest = NSURLRequest(URL: nsUrl)
         webView.delegate = self
         webView.loadRequest(request)
         

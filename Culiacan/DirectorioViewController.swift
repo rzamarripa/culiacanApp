@@ -53,8 +53,8 @@ class DirectorioViewController: UITableViewController {
     }
     
     func congfigRequest(uri:String) -> NSMutableURLRequest {
-        var usr = "dsdd"
-        var pwdCode = "dsds"
+        let usr = "dsdd"
+        let pwdCode = "dsds"
         let params:[String: AnyObject] = [
             "email" : usr,
             "userPwd" : pwdCode ]
@@ -64,35 +64,40 @@ class DirectorioViewController: UITableViewController {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "POST"
         var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions.allZeros, error: &err)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+        } catch let error as NSError {
+            err = error
+            request.HTTPBody = nil
+        }
         
         return request
     }
     
     func getFuncionarios(){
-        var configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        var session = NSURLSession(configuration: configuration)
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: configuration)
         
         let request = congfigRequest("http://transparencia.culiacan.gob.mx/api/directorio/funcionarios")
-        var err: NSError?
+        //var err: NSError?
         
         let funcionarios = session.dataTaskWithRequest(request) {
             data, response, error in
             
             if let httpResponse = response as? NSHTTPURLResponse {
                 if httpResponse.statusCode != 200 {
-                    println("response was not 200: \(response)")
+                    print("response was not 200: \(response)")
                     return
                 }
             }
             if (error != nil) {
-                println("error submitting request: \(error)")
+                print("error submitting request: \(error)")
                 return
             }
             
             // handle the data of the successful response here
             
-            if let result:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&err) as? NSDictionary {
+            if let result:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary {
                 /*
                 "foto": "4_17_irma_moreno.jpg",
                 "nombre_completo": "C. Irma Guadalupe Moreno Ovalles",
@@ -105,9 +110,9 @@ class DirectorioViewController: UITableViewController {
                 */
                 
                 if let items  = result.objectForKey("funcionarios") as? NSArray {
-                    println(result)
+                    print(result)
                     for item in items {
-                        var funcionario:Funcionario = Funcionario()
+                        let funcionario:Funcionario = Funcionario()
                         var hasName = false
                         if let foto:String = item.objectForKey("foto") as? String {
                             funcionario.foto = foto
@@ -149,10 +154,10 @@ class DirectorioViewController: UITableViewController {
     }
     
     func getDependencias() {
-        var configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        var session = NSURLSession(configuration: configuration)
-        var usr = "dsdd"
-        var pwdCode = "dsds"
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: configuration)
+        let usr = "dsdd"
+        let pwdCode = "dsds"
         let params:[String: AnyObject] = [
             "email" : usr,
             "userPwd" : pwdCode ]
@@ -162,31 +167,36 @@ class DirectorioViewController: UITableViewController {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "POST"
         var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions.allZeros, error: &err)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+        } catch let error as NSError {
+            err = error
+            request.HTTPBody = nil
+        }
         
         let dependencias = session.dataTaskWithRequest(request) {
             data, response, error in
             
             if let httpResponse = response as? NSHTTPURLResponse {
                 if httpResponse.statusCode != 200 {
-                    println("response was not 200: \(response)")
+                    print("response was not 200: \(response)")
                     return
                 }
             }
             if (error != nil) {
-                println("error submitting request: \(error)")
+                print("error submitting request: \(error)")
                 return
             }
             
             // handle the data of the successful response here
             
-            if let result:NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&err) as? NSDictionary {
+            if let result:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary {
                 
                 
                 if let items  = result.objectForKey("dependencias") as? NSArray {
                    // println(result)
                     for item in items {
-                        var dependencia:Dependencia = Dependencia()
+                        let dependencia:Dependencia = Dependencia()
                         var hasName = false
                         if let slug:String = item.objectForKey("dependencia_slug") as? String {
                             dependencia.slug = slug
@@ -214,7 +224,7 @@ class DirectorioViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
         
         let dependencia:Dependencia = arrayDirectorio[indexPath.row] as! Dependencia
         
@@ -287,7 +297,7 @@ class DirectorioViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "funcionarios_segue" {
-            var controller:FuncionariosViewController = segue.destinationViewController as! FuncionariosViewController
+            let controller:FuncionariosViewController = segue.destinationViewController as! FuncionariosViewController
             controller.arrayFuncionarios = filtrados
         }
     }

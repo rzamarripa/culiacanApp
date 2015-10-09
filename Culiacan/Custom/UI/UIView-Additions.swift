@@ -17,10 +17,10 @@ extension UIView {
     
     
     func startLoading(title: String) {
-        var w = self.frame.size.width
-        var h = self.frame.size.height
+        let w = self.frame.size.width
+        let h = self.frame.size.height
         
-        var loadingView = LoadingView(frame: CGRectMake(w / 2 - 75, h / 2 - 75, 150, 150))
+        let loadingView = LoadingView(frame: CGRectMake(w / 2 - 75, h / 2 - 75, 150, 150))
         loadingView.title = title
         
         addSubview(loadingView)
@@ -29,11 +29,11 @@ extension UIView {
     
     func stopLoading() {
         for v in subviews {
-            if v.isKindOfClass(LoadingView) {
+            if v.isKindOfClass(LoadingView){
                 v.removeFromSuperview()
             }
-        }
-        
+            }
+    
         userInteractionEnabled = true
     }
     
@@ -66,12 +66,12 @@ extension UIView {
     
     func removeSingleConstraint(constraint: NSLayoutConstraint) -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
-        for c in self.constraints() {
-            if (c as! NSLayoutConstraint) != constraint {
-                constraints.append(c as! NSLayoutConstraint)
+        for c in self.constraints {
+            if (c ) != constraint {
+                constraints.append(c )
             }
         }
-        self.removeConstraints(self.constraints())
+        self.removeConstraints(self.constraints)
         return constraints
     }
     

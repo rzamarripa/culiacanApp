@@ -19,7 +19,7 @@ class MenuTableViewController: UITableViewController {
         // Customize apperance of table view
         tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0) //
         tableView.separatorStyle = .None
-        var color : UIColor = Colors.grisClaro()
+        let color : UIColor = Colors.grisClaro()
         tableView.backgroundColor = color
         tableView.scrollsToTop = false
         
@@ -48,7 +48,7 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CELL") as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("CELL") as UITableViewCell!
         
         if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL")
@@ -70,7 +70,7 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        println("did select row: \(indexPath.row)")
+        print("did select row: \(indexPath.row)")
         
         if (indexPath.row == selectedMenuItem) {
             return
@@ -83,16 +83,16 @@ class MenuTableViewController: UITableViewController {
         var destViewController : UIViewController!
         switch (indexPath.row) {
         case 0:        
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("RootViewController") as! UIViewController
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("RootViewController") 
             break
         case 1:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ConsultaPredialViewController") as! UIViewController
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ConsultaPredialViewController") 
             break
         case 2:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("DirectorioViewController") as! UIViewController
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("DirectorioViewController") 
             break
         case 3:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SesionesViewController") as! UIViewController
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SesionesViewController") 
             break
         default:
             return
