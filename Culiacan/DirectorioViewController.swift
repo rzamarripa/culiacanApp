@@ -20,8 +20,6 @@ class DirectorioViewController: UITableViewController {
         
         self.view.startLoading("Cargando")
        // self.navigationController!.view.startLoading(NSLocalizedString("Saving...", comment:"Saving..."))
-        
-        
 
         getFuncionarios()
         getDependencias()
@@ -80,7 +78,7 @@ class DirectorioViewController: UITableViewController {
         
         let request = congfigRequest("http://transparencia.culiacan.gob.mx/api/directorio/funcionarios")
         //var err: NSError?
-        
+        print(request) 
         let funcionarios = session.dataTaskWithRequest(request) {
             data, response, error in
             
@@ -215,7 +213,6 @@ class DirectorioViewController: UITableViewController {
                     }
                     self.tableView.reloadData()
                     self.view.stopLoading()
-        
                 }
   
              }
@@ -304,6 +301,4 @@ class DirectorioViewController: UITableViewController {
             controller.arrayFuncionarios = filtrados
         }
     }
-
-
 }

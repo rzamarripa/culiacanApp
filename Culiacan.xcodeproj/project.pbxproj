@@ -35,6 +35,8 @@
 		04A5A4DB1A8C1677007FDF1D /* ReciboViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */; };
 		04D3BE6B1A42561B00887740 /* ConsultaPredialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */; };
 		1D087C021B8440EF0082F64A /* DirectorioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D087C011B8440EF0082F64A /* DirectorioViewController.swift */; };
+		1D8CCDEC1BE9176C003550DB /* TramitesyServicios.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CCDEB1BE9176C003550DB /* TramitesyServicios.swift */; };
+		1D8CCDEE1BE917B2003550DB /* TramitesyServiciosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CCDED1BE917B2003550DB /* TramitesyServiciosTableViewController.swift */; };
 		8F27D6C11BB76820004FA399 /* FuncionarioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */; };
 		8F27D6C51BB7753E004FA399 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C41BB7753E004FA399 /* LoadingView.swift */; };
 		8F27D6C71BB77573004FA399 /* UIView-Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27D6C61BB77573004FA399 /* UIView-Additions.swift */; };
@@ -88,6 +90,8 @@
 		04A5A4DA1A8C1677007FDF1D /* ReciboViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciboViewController.swift; sourceTree = "<group>"; };
 		04D3BE6A1A42561B00887740 /* ConsultaPredialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsultaPredialViewController.swift; sourceTree = "<group>"; };
 		1D087C011B8440EF0082F64A /* DirectorioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectorioViewController.swift; sourceTree = "<group>"; };
+		1D8CCDEB1BE9176C003550DB /* TramitesyServicios.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TramitesyServicios.swift; sourceTree = "<group>"; };
+		1D8CCDED1BE917B2003550DB /* TramitesyServiciosTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TramitesyServiciosTableViewController.swift; sourceTree = "<group>"; };
 		8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FuncionarioViewController.swift; path = Directorio/FuncionarioViewController.swift; sourceTree = "<group>"; };
 		8F27D6C41BB7753E004FA399 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = Custom/UI/LoadingView.swift; sourceTree = "<group>"; };
 		8F27D6C61BB77573004FA399 /* UIView-Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView-Additions.swift"; path = "Custom/UI/UIView-Additions.swift"; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 		0431C8241A36697D0089152F /* Culiacan */ = {
 			isa = PBXGroup;
 			children = (
+				1D8CCDEA1BE9174A003550DB /* TramitesServicios */,
 				8F27D6C21BB77506004FA399 /* Custom */,
 				1D087BFE1B8440800082F64A /* Directorio */,
 				043C12061A3766470028B104 /* Api */,
@@ -248,6 +253,15 @@
 				8F27D6C01BB76820004FA399 /* FuncionarioViewController.swift */,
 			);
 			name = Directorio;
+			sourceTree = "<group>";
+		};
+		1D8CCDEA1BE9174A003550DB /* TramitesServicios */ = {
+			isa = PBXGroup;
+			children = (
+				1D8CCDEB1BE9176C003550DB /* TramitesyServicios.swift */,
+				1D8CCDED1BE917B2003550DB /* TramitesyServiciosTableViewController.swift */,
+			);
+			name = TramitesServicios;
 			sourceTree = "<group>";
 		};
 		8F27D6C21BB77506004FA399 /* Custom */ = {
@@ -378,9 +392,11 @@
 				0431C84A1A366A0C0089152F /* ENSideMenu.swift in Sources */,
 				8FCE48971BB65CE100CCFE74 /* Funcionario.swift in Sources */,
 				045A833F1A3A1B54009C6E69 /* RootViewController.swift in Sources */,
+				1D8CCDEE1BE917B2003550DB /* TramitesyServiciosTableViewController.swift in Sources */,
 				041BA6AF1A3A31570055FCA1 /* Reachability.swift in Sources */,
 				043C120F1A3782C10028B104 /* ProblematicasViewController.swift in Sources */,
 				0431C8531A366E190089152F /* MenuTableViewController.swift in Sources */,
+				1D8CCDEC1BE9176C003550DB /* TramitesyServicios.swift in Sources */,
 				8F27D6C71BB77573004FA399 /* UIView-Additions.swift in Sources */,
 				8FCE48991BB6644D00CCFE74 /* FuncionariosViewController.swift in Sources */,
 				C1CADC7A1A429F2F00DDA3FF /* DetPredialViewController.swift in Sources */,
