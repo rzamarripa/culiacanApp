@@ -18,11 +18,33 @@ class DirectorioViewController: UITableViewController {
         arrayDirectorio = []
         arrayFuncionarios  = []
         
-        self.view.startLoading("Cargando")
        // self.navigationController!.view.startLoading(NSLocalizedString("Saving...", comment:"Saving..."))
+        
+        
+        if let existFuncionarios = NSUserDefaults.standardUserDefaults().objectForKey("Funcionarios") {
+            if let result:NSDictionary = existFuncionarios as? NSDictionary{
+                processFuncionarios(result)
+            }
+        }
+        
+        if let existFuncionarios = NSUserDefaults.standardUserDefaults().objectForKey("Dependencias") {
+            if let result:NSDictionary = existFuncionarios as? NSDictionary{
+                processDependencias(result)
+            }
+        }
 
-        getFuncionarios()
-        getDependencias()
+        if arrayFuncionarios.count == 0 {
+            getFuncionarios()
+        }
+        
+        if arrayDirectorio.count == 0 {
+            getDependencias()
+        }
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.whiteColor()
+        self.refreshControl?.tintColor = UIColor.blackColor()
+        self.refreshControl?.addTarget(self,action:Selector("actualizarDatos"), forControlEvents: .ValueChanged)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,6 +52,13 @@ class DirectorioViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    func actualizarDatos(){
+        getDependencias()
+        getFuncionarios()
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,54 +125,9 @@ class DirectorioViewController: UITableViewController {
             // handle the data of the successful response here
             
             if let result:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary {
-                /*
-                "foto": "4_17_irma_moreno.jpg",
-                "nombre_completo": "C. Irma Guadalupe Moreno Ovalles",
-                "correo": "irma.moreno@culiacan.gob.mx",
-                "direccion": "Palacio Municipal\nPlanta baja",
-                "telefono": "Conmut. 758-01-01 Ext. 1391, 1392 Directo 758-01-19 Directo 715-85-46",
-                "puesto": "SÍNDICA PROCURADORA",
-                "dependencia": "SÍNDICO PROCURADOR",
-                "estado":
-                */
-                
-                if let items  = result.objectForKey("funcionarios") as? NSArray {
-                    print(result)
-                    for item in items {
-                        let funcionario:Funcionario = Funcionario()
-                        var hasName = false
-                        if let foto:String = item.objectForKey("foto") as? String {
-                            funcionario.foto = foto
-                        }
-                        if let correo:String = item.objectForKey("correo") as? String{
-                            funcionario.correo = correo
-                        }
-                        if let nombre:String = item.objectForKey("nombre_completo") as? String {
-                            funcionario.nombre = nombre
-                            hasName = true
-                        }
-                        if let direccion:String = item.objectForKey("direccion") as? String {
-                            funcionario.direccion = direccion
-                        }
-                        if let telefono:String = item.objectForKey("telefono") as? String {
-                            funcionario.telefono = telefono
-                        }
-                        if let puesto:String = item.objectForKey("puesto") as? String {
-                            funcionario.puesto = puesto
-                        }
-                        if let dependencia:String = item.objectForKey("dependencia") as? String {
-                            funcionario.dependencia = dependencia
-                        }
-                        if let estado:String = item.objectForKey("estado") as? String {
-                            funcionario.estado = estado
-                        }
-                        
-                        if hasName {
-                            self.arrayFuncionarios.addObject(funcionario)
-                        }
-                    }
-                    
-                }
+              
+               self.processFuncionarios(result)
+                NSUserDefaults.standardUserDefaults().setObject(result, forKey: "Funcionarios")
                 
             }
         }
@@ -151,7 +135,77 @@ class DirectorioViewController: UITableViewController {
         
     }
     
+    func processFuncionarios(result:NSDictionary){
+        arrayFuncionarios.removeAllObjects()
+        if let items  = result.objectForKey("funcionarios") as? NSArray {
+            print(result)
+            for item in items {
+                let funcionario:Funcionario = Funcionario()
+                var hasName = false
+                if let foto:String = item.objectForKey("foto") as? String {
+                    funcionario.foto = foto
+                }
+                if let correo:String = item.objectForKey("correo") as? String{
+                    funcionario.correo = correo
+                }
+                if let nombre:String = item.objectForKey("nombre_completo") as? String {
+                    funcionario.nombre = nombre
+                    hasName = true
+                }
+                if let direccion:String = item.objectForKey("direccion") as? String {
+                    funcionario.direccion = direccion
+                }
+                if let telefono:String = item.objectForKey("telefono") as? String {
+                    funcionario.telefono = telefono
+                }
+                if let puesto:String = item.objectForKey("puesto") as? String {
+                    funcionario.puesto = puesto
+                }
+                if let dependencia:String = item.objectForKey("dependencia") as? String {
+                    funcionario.dependencia = dependencia
+                }
+                if let estado:String = item.objectForKey("estado") as? String {
+                    funcionario.estado = estado
+                }
+                
+                if hasName {
+                    self.arrayFuncionarios.addObject(funcionario)
+                }
+            }
+        }
+    }
+    
+    func processDependencias(result:NSDictionary){
+        arrayDirectorio.removeAllObjects()
+        if let items  = result.objectForKey("dependencias") as? NSArray {
+            // println(result)
+            for item in items {
+                let dependencia:Dependencia = Dependencia()
+                var hasName = false
+                if let slug:String = item.objectForKey("dependencia_slug") as? String {
+                    dependencia.slug = slug
+                }
+                if let dependencia_id:String = item.objectForKey("id_dependencia") as? String{
+                    dependencia.dependencia_id = dependencia_id
+                }
+                if let nombre:String = item.objectForKey("nombre_dependencia") as? String {
+                    dependencia.nombre = nombre
+                    hasName = true
+                }
+                if hasName {
+                    self.arrayDirectorio.addObject(dependencia)
+                }
+            }
+            self.tableView.reloadData()
+            self.view.stopLoading()
+            if((self.refreshControl) != nil){
+                self.refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
     func getDependencias() {
+        self.view.startLoading("Cargando")
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: configuration)
         let usr = "dsdd"
@@ -164,11 +218,11 @@ class DirectorioViewController: UITableViewController {
         let request = NSMutableURLRequest(URL: url!)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.HTTPMethod = "POST"
-        var err: NSError?
+       // var err: NSError?
         do {
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
         } catch let error as NSError {
-            err = error
+            //err = error
 
             request.HTTPBody = nil
         }
@@ -191,29 +245,9 @@ class DirectorioViewController: UITableViewController {
             
             if let result:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary {
                 
-                
-                if let items  = result.objectForKey("dependencias") as? NSArray {
-                   // println(result)
-                    for item in items {
-                        let dependencia:Dependencia = Dependencia()
-                        var hasName = false
-                        if let slug:String = item.objectForKey("dependencia_slug") as? String {
-                            dependencia.slug = slug
-                        }
-                        if let dependencia_id:String = item.objectForKey("id_dependencia") as? String{
-                                dependencia.dependencia_id = dependencia_id
-                        }
-                        if let nombre:String = item.objectForKey("nombre_dependencia") as? String {
-                            dependencia.nombre = nombre
-                            hasName = true
-                        }
-                        if hasName {
-                            self.arrayDirectorio.addObject(dependencia)
-                        }
-                    }
-                    self.tableView.reloadData()
-                    self.view.stopLoading()
-                }
+                self.processDependencias(result)
+                NSUserDefaults.standardUserDefaults().setObject(result, forKey: "Dependencias")
+
   
              }
         }

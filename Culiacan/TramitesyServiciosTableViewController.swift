@@ -10,27 +10,19 @@ import UIKit
 
 class TramitesyServiciosTableViewController: UITableViewController {
     
-    private var arrayTramitesyServicios:NSMutableArray!
+    private var arrayTramitesyServicios:[TramiteyServicio]!
     private var traimtesyServiciosSelected:TramiteyServicio!
     
     func congfigRequest(uri:String) -> NSMutableURLRequest {
-        let usr = "dsdd"
-        let pwdCode = "dsds"
-        let params:[String: AnyObject] = [
-            "email" : usr,
-            "userPwd" : pwdCode ]
+        //let usr = "dsdd"
+        //let pwdCode = "dsds"
+       
         
         let url = NSURL(string:uri)
         let request = NSMutableURLRequest(URL: url!)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.HTTPMethod = "POST"
-        var err: NSError?
-        do {
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
-        } catch let error as NSError {
-            err = error
-            request.HTTPBody = nil
-        }       
+        request.HTTPMethod = "GET"
+        
         return request
     }
     
@@ -58,65 +50,76 @@ class TramitesyServiciosTableViewController: UITableViewController {
             // handle the data of the successful response here
             
             if let result:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary {
-                if let items  = result.objectForKey("tramites_y_servicios") as? NSArray {
-                    print(items)
-                    for item in items {
-                        let tramiteyServicio:TramiteyServicio = TramiteyServicio()
-                        var hasName = false
-                        if let dependencia:String = item.objectForKey("dependencia") as? String{
-                            tramiteyServicio.dependencia = dependencia
-                        }
-                        if let tramite:String = item.objectForKey("tramite") as? String {
-                            tramiteyServicio.tramite = tramite
-                            hasName = true
-                        }
-                        if let comprobante_obtener:String = item.objectForKey("comprobante_obtener") as? String {
-                            tramiteyServicio.tramite = comprobante_obtener
-                            hasName = true
-                        }
-                        if let tiempo_respuesta:String = item.objectForKey("tiempo_respuesta") as? String {
-                            tramiteyServicio.tramite = tiempo_respuesta
-                            hasName = true
-                        }
-                        if let informacion_gral:String = item.objectForKey("informacion_gral") as? String {
-                            tramiteyServicio.tramite = informacion_gral
-                            hasName = true
-                        }
-                        if let area_proporciona:String = item.objectForKey("area_proporciona") as? String {
-                            tramiteyServicio.tramite = area_proporciona
-                            hasName = true
-                        }
-                        if let nombre_responsable:String = item.objectForKey("nombre_responsable") as? String {
-                            tramiteyServicio.tramite = nombre_responsable
-                            hasName = true
-                        }
-                        if let requisitos:String = item.objectForKey("requisitos") as? String {
-                            tramiteyServicio.tramite = requisitos
-                            hasName = true
-                        }
-                        if let hora_atencion:String = item.objectForKey("hora_atencion") as? String {
-                            tramiteyServicio.tramite = hora_atencion
-                            hasName = true
-                        }
-                        if let telefono:String = item.objectForKey("telefono") as? String {
-                            tramiteyServicio.tramite = telefono
-                            hasName = true
-                        }
-                        if let observaciones:String = item.objectForKey("observaciones") as? String {
-                            tramiteyServicio.tramite = observaciones
-                            hasName = true
-                        }
-                        if hasName {
-                            self.arrayTramitesyServicios.addObject(tramiteyServicio)
-                        }
-                    }
-                    self.tableView.reloadData()
-                    self.view.stopLoading()
-                }
+                self.processTramites(result)
+                //NSUserDefaults.standardUserDefaults().setObject(result, forKey: "TramitesServicios")
             }
         }
         tramites.resume()
         
+    }
+    
+    func processTramites(result:NSDictionary){
+        if let items  = result.objectForKey("tramites_y_servicios") as? NSArray {
+            print(items)
+            
+            
+        for item in items {
+            let tramiteyServicio:TramiteyServicio = TramiteyServicio()
+            var hasName = false
+            if let dependencia:String = item.objectForKey("dependencia") as? String{
+                tramiteyServicio.dependencia = dependencia
+            }
+            if let tramite:String = item.objectForKey("tramite") as? String {
+                tramiteyServicio.tramite = tramite
+                hasName = true
+            }
+            if let comprobante_obtener:String = item.objectForKey("comprobante_obtener") as? String {
+                tramiteyServicio.comprobante_obtener = comprobante_obtener
+                hasName = true
+            }
+            if let tiempo_respuesta:String = item.objectForKey("tiempo_respuesta") as? String {
+                tramiteyServicio.tiempo_respuesta = tiempo_respuesta
+                hasName = true
+            }
+            if let informacion_gral:String = item.objectForKey("informacion_gral") as? String {
+                tramiteyServicio.informacion_gral = informacion_gral
+                hasName = true
+            }
+            if let area_proporciona:String = item.objectForKey("area_proporciona") as? String {
+                tramiteyServicio.area_proporciona = area_proporciona
+                hasName = true
+            }
+            if let nombre_responsable:String = item.objectForKey("nombre_responsable") as? String {
+                tramiteyServicio.nombre_responsable = nombre_responsable
+                hasName = true
+            }
+            if let requisitos:String = item.objectForKey("requisitos") as? String {
+                tramiteyServicio.requisitos = requisitos
+                hasName = true
+            }
+            if let hora_atencion:String = item.objectForKey("hora_atencion") as? String {
+                tramiteyServicio.hora_atencion = hora_atencion
+                hasName = true
+            }
+            if let telefono:String = item.objectForKey("telefono") as? String {
+                tramiteyServicio.telefono = telefono
+                hasName = true
+            }
+            if let observaciones:String = item.objectForKey("observaciones") as? String {
+                tramiteyServicio.observaciones = observaciones
+                hasName = true
+            }
+            if hasName {
+                self.arrayTramitesyServicios.append(tramiteyServicio)
+            }
+        }
+            
+            self.tableView.reloadData()
+            self.view.stopLoading()
+            
+
+    }
+
     }
     
     override func viewDidLoad() {
@@ -125,7 +128,16 @@ class TramitesyServiciosTableViewController: UITableViewController {
         
         
         self.view.startLoading("Cargando")
-        getTramitesyServicios()
+        
+        if let existFuncionarios = NSUserDefaults.standardUserDefaults().objectForKey("TramitesServicios") {
+            if let result:NSDictionary = existFuncionarios as? NSDictionary{
+                processTramites(result)
+            }
+        }
+        
+        if arrayTramitesyServicios.count == 0 {
+            getTramitesyServicios()
+        }
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -156,7 +168,7 @@ class TramitesyServiciosTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         
-        let tys:TramiteyServicio = arrayTramitesyServicios[indexPath.row] as! TramiteyServicio
+        let tys:TramiteyServicio = arrayTramitesyServicios[indexPath.row]
         
         cell.textLabel?.text = tys.tramite
         
