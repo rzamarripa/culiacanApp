@@ -11,7 +11,7 @@ import UIKit
 class RootViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    private let array = ["icoPredial","icoDirectorio"]
+    private let array = ["icoPredial","icoDirectorio", "icoTramites"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +62,9 @@ class RootViewController: UIViewController, UICollectionViewDataSource, UICollec
         }else if indexPath.row == 1 {
             self.performSegueWithIdentifier("pushDirectorio", sender: self)
         }else if indexPath.row == 2 {
+            self.performSegueWithIdentifier("pushTramitesyServicios", sender: self)
+        }else if indexPath.row == 3 {
             self.performSegueWithIdentifier("pushCabildoAbierto", sender: self)
-            
         }
         
     }

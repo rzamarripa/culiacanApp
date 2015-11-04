@@ -11,7 +11,7 @@ import UIKit
 class MenuTableViewController: UITableViewController {
 
     var selectedMenuItem : Int = 0
-    var arrayMenu : NSMutableArray = ["Inicio", "Consultar Predial", "Directorio"];
+    var arrayMenu : NSMutableArray = ["Inicio", "Consultar Predial", "Directorio", "Trámites y Servicios"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +92,9 @@ class MenuTableViewController: UITableViewController {
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("DirectorioViewController") 
             break
         case 3:
+            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("TramitesyServiciosTableViewController")
+            break
+        case 4:
             destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SesionesViewController") 
             break
         default:
